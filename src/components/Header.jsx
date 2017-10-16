@@ -3,6 +3,17 @@ import SearchBar from './SearchBar.jsx';
 
 import drinkLogo from '../assets/drinks-text.png';
 
+function Header(props) {
+  return (
+    <div style={containerStyle}>
+      <img src={drinkLogo} style={{height: '50px'}} alt={"Drinks Logo"}/>
+      <SearchBar />
+    </div>
+  )
+}
+
+export default Header;
+
 const containerStyle = {
   display: 'flex',
   position: 'fixed',
@@ -19,16 +30,3 @@ const containerStyle = {
   boxSizing: 'border-box',
   zIndex: 9,
 }
-
-
-
-function Header(props) {
-  return (
-    <div style={containerStyle}>
-      <img src={drinkLogo} style={{height: '50px'}} alt={"Drinks Logo"}/>
-      <SearchBar />
-    </div>
-  )
-}
-
-export default Header;

@@ -11,6 +11,8 @@ function AttendingList(props) {
   );
 }
 
+export default AttendingList;
+
 function generateAttendees(list) {
   return list.map((attendee, index) => {
     return (
@@ -20,12 +22,9 @@ function generateAttendees(list) {
           <span style={{fontWeight: 'bold'}}>{attendee.name}</span>
         </div>
       </li>
-    )
+    );
   })
 }
-
-export default AttendingList;
-
 
 const imageStyle = {
   borderRadius: '50%',

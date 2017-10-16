@@ -13,6 +13,8 @@ function CommentList(props) {
   );
 }
 
+export default CommentList;
+
 function generateComments(list) {
   return list.map((comment, index) => {
     const { user, message } = comment;
@@ -29,9 +31,6 @@ function generateComments(list) {
     )
   })
 }
-
-export default CommentList;
-
 
 const imageStyle = {
   borderRadius: '50%',

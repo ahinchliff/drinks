@@ -10,6 +10,8 @@ function Switch(props) {
   );    
 }
 
+export default Radium(Switch);
+
 const attendingStyle = {
   marginLeft: '30px',
   fontFamily: 'Arial',
@@ -33,8 +35,6 @@ const notAttendingStyle = {
   width: '140px',
   outlineWidth: 0,
   ':hover': {
-
-  } ,
+  }
 }
 
-export default Radium(Switch);

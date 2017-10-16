@@ -7,30 +7,26 @@ function EventList(props) {
     <div style={containerStyle}>
       {generateEvents()}
     </div>
-  )
+  );
 
+  function mapStateToProps({ events, searchTerm }) {
+    return { events, searchTerm };
+  }
+  
+  export default connect(mapStateToProps)(EventList);
+  
   function generateEvents() {
     const { events, searchTerm } = props;
-    
-    if (!events) {return}
+    if (!events) {return};
     
     const filteredEventsByTerm = events.filter(event => {
       const title = event.title.toLowerCase();
       const term = searchTerm.toLowerCase();
       return title.includes(term);
     })
-
     return filteredEventsByTerm.map(event => <Event data={event} key={event.id} />);
   }
-
 }
-
-function mapStateToProps({ events, searchTerm }) {
-  return { events, searchTerm }
-}
-
-export default connect(mapStateToProps)(EventList);
-
 
 const containerStyle = {
   boxSizing: 'border-box',
@@ -39,5 +35,3 @@ const containerStyle = {
   padding: '15px',
   width: '100%',
 }
-
-

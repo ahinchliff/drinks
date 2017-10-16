@@ -17,11 +17,11 @@ class App extends Component {
     return (
       <StyleRoot>
         <BrowserRouter>
-        <div style={{margin: 0, padding: 0}}>
-          <Header />
-          <Main/>
-          <Route path="/events/:id" component={EventProfile} />
-        </div>
+          <div style={{margin: 0, padding: 0}}>
+            <Header />
+            <Main/>
+            <Route path="/events/:id" component={EventProfile} />
+          </div>
         </BrowserRouter>
       </StyleRoot>
     );
