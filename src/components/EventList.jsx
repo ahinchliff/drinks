@@ -8,12 +8,6 @@ function EventList(props) {
       {generateEvents()}
     </div>
   );
-
-  function mapStateToProps({ events, searchTerm }) {
-    return { events, searchTerm };
-  }
-  
-  export default connect(mapStateToProps)(EventList);
   
   function generateEvents() {
     const { events, searchTerm } = props;
@@ -27,6 +21,12 @@ function EventList(props) {
     return filteredEventsByTerm.map(event => <Event data={event} key={event.id} />);
   }
 }
+
+function mapStateToProps({ events, searchTerm }) {
+  return { events, searchTerm };
+}
+
+export default connect(mapStateToProps)(EventList);
 
 const containerStyle = {
   boxSizing: 'border-box',

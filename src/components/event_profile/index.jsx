@@ -24,15 +24,10 @@ function EventProfile(props) {
 }
 
 function mapStateToProps({ events }) {
-
   return { events };
 }
 
 export default connect(mapStateToProps, actions)(EventProfile);
-
-
-
-
 
 
 function closeEventProfile(history) {
@@ -58,7 +53,6 @@ function generateProfile(event, toggleAttendingEvent) {
   );
 }
 
-
 const overlayStyle = {
   position: 'fixed',
   display: 'flex',
@@ -83,7 +77,6 @@ const profileStyle = {
 const headerStyle = {
   display: 'flex',
   alignItems: 'center',
-
 }
 
 
