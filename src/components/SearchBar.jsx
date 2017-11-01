@@ -1,15 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux'
 import * as actions from '../actions';
+import styled from 'styled-components';
 
 function SearchBar(props) {
   return (
-    <input 
-      style={style}
-      type="text"
-      placeholder="search"
-      onChange={handleOnChange}
-    />
+    <SearchInput type="text" placeholder="search" onChange={handleOnChange}/>
   );
 
   function handleOnChange(event) {
@@ -19,13 +15,13 @@ function SearchBar(props) {
 
 export default connect(null, actions)(SearchBar);
 
-const style = {
-  border: 'none',
-  fontSize: '28px',
-  fontFamily: '"Helvetica", sans-serif',
-  color: '#4DAB7C',
-  borderRadius: '4px',
-  height: '50px',
-  marginLeft: '100px',
-  outlineWidth: 0,
-}
+const SearchInput = styled.input`
+  border: none;
+  border-radius: 4px;
+  color: #4DAB7C;
+  font-size: 28px;
+  font-family: "Helevetica", sans-serif;
+  height: 50px;
+  margin-left: 100px;
+  outline-width: 0;
+`;

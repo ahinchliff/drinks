@@ -1,6 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import Radium from 'radium';
+import styled from 'styled-components';
 import beerBackground from '../assets/beer-icon-background.png';
 import coffeeBackground from '../assets/coffee-icon-background.png';
 import cocktailBackground from '../assets/cocktail-icon-background.png';
@@ -11,20 +11,19 @@ import guestsIcon from '../assets/guests.png';
 function Event(props) {
   const { id, type, title, guests, comments, attending } = props.data;
   const { history } = props;
-  
-  
-  determineMainBackground(type);
   const guestCount = guests.length;
   const commentCount = comments.length;
+
   return (
-    <div style={containerStyle}>
-        <div style={innerStyle} onClick={() => handleOnClick(history, id)}>
-          <header style={headerStyle}>
-            <p style={{padding: 0, margin: 0}}>{title}</p>
-          </header>
-          <main style={mainStyle}>
-            {attending && <span style={attendingStyle}>Attending</span>}
-          </main>
+    <Wrapper>
+      <EventClickable onClick={() => handleOnClick(history, id)}>
+        <Header>
+          <p>{title}</p>
+        </Header>
+        <Main type={type}>
+          {attending && <span style={attendingStyle}>Attending</span>}
+        </Main>
+        
           <footer style={footerStyle}>
             <div style={{marginRight: '30px', display: 'flex', alignItems: 'center'}}>
               <img src={guestsIcon} style={{height: '25px', marginRight: '10px'}} alt={"Guest count"}/>
@@ -35,83 +34,72 @@ function Event(props) {
               {commentCount}
             </div>
           </footer> 
-        </div>
-    </div>
+      </EventClickable>
+    </Wrapper>
   );
 }
 
-export default withRouter(Radium(Event));
+export default withRouter(Event);
 
 function handleOnClick(history, id) {
   history.push(`/events/${id}`);
 }
 
-function determineMainBackground(type) {
-  let background;
-  switch(type) {
-    case "COCKTAILS":
-      background = cocktailBackground;
-      break
-    case "BEERS":
-      background = beerBackground;
-      break
-    case "COFFEES":
-      background = coffeeBackground;
-      break
-    case "MILKSHAKES":
-      background = milkshakeBackground;
-      break
-    default:
-      return
+const Wrapper = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  padding: 15px;
+  @media (min-width : 321px) and (max-width : 1000px) {
+    width: 50%;
   }
-  mainStyle.backgroundImage = `url(${background})`
-}
+  @media (min-width : 1001px) and (max-width : 1399px) {
+    width: 33%;
+  }
+  @media (min-width : 1400px) and (max-width : 1600px) {
+    width: 25%;
+  }
+  @media (min-width : 1601px) {
+    width: 20%;
+  }
+`;
 
-const containerStyle = {
-  boxSizing: 'border-box',
-  display: 'flex',
-  padding: '15px',
-  '@media (min-width : 321px) and (max-width : 1000px)': {
-    width: '50%'
-  },
-  '@media (min-width : 1001px) and (max-width : 1399px)': {
-    width: '33%'
-  },
-  '@media (min-width : 1400px) and (max-width : 1600px)': {
-    width: '25%'
-  },
-  '@media (min-width : 1601px)': {
-    width: '20%'
-  },
-}
+const EventClickable = styled.div`
+  border: 1px solid #e4e4e4;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  width: 100%;
+  position: relative;
+  cursor: pointer;
+  &:hover { border: 3px solid black; }
+`;
 
-const innerStyle = {
-  border: '1px solid #e4e4e4',
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexDirection: 'column',
-  height: '300px',
-  width: '100%',
-  position: 'relative',
-  ':hover': {
-    border: '3px solid black'
-  },
-  cursor: 'pointer',
-}
+const Header = styled.div`
+  background: white;
+  padding: 10px 0 10px 15px;
+  font-family: "Helvetica", sans-serif;
+  letter-spacing: 2px;
+  p {
+    padding: 0;
+    margin: 0;
+  }
+`;
 
-const headerStyle = {
-  background: 'white',
-  padding: '10px 0 10px 15px',
-  fontFamily: '"Helvetica", sans-serif',
-  letterSpacing: '2px',
-}
-
-const mainStyle = {
-  flexGrow: 1,
-  backgroundSize: 'stretch',
-  backgroundPosition: 'center',
-  padding: '10px',
-}
+const Main = styled.main`
+  flex-grow: 1;
+  background-size: stretch;
+  background-position: center;
+  padding: 10px;
+  background-image: url(${
+    props => {
+      if (props.type === 'COCKTAILS') {return cocktailBackground}
+      if (props.type === 'BEERS') {return beerBackground}
+      if (props.type === 'COFFEES') {return coffeeBackground}
+      if (props.type === 'MILKSHAKES') {return milkshakeBackground}
+    }
+  });
+`;
 
 const footerStyle = {
   padding: '10px 0 10px 15px',

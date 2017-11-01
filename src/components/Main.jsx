@@ -1,12 +1,17 @@
 import React from 'react';
 import EventList from './EventList';
+import styled from 'styled-components';
 
 function Main(props) {
   return (
-    <div style={{marginTop: '80px'}}>
+    <Wrapper>
       <EventList />
-    </div>
+    </Wrapper>
   )
 }
 
 export default Main;
+
+const Wrapper = styled.div`
+  margin-top: 80px;
+`

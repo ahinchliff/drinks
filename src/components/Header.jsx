@@ -1,32 +1,36 @@
 import React from 'react';
+import styled from 'styled-components';
 import SearchBar from './SearchBar.jsx';
-
 import drinkLogo from '../assets/drinks-text.png';
 
 function Header(props) {
   return (
-    <div style={containerStyle}>
-      <img src={drinkLogo} style={{height: '50px'}} alt={"Drinks Logo"}/>
+    <Wrapper>
+      <Logo src={drinkLogo} alt={"Drinks Logo"}/>
       <SearchBar />
-    </div>
+    </Wrapper>
   )
 }
 
 export default Header;
 
-const containerStyle = {
-  display: 'flex',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: '100%',
-  flexDirection: 'row',
-  background: 'white',
-  alignItems: 'center',
-  height: '80px',
-  paddingLeft: '50px',
-  borderBottom: '1px solid #e4e4e4',
-  boxShadow: '0 1px 5px rgba(0, 0, 0, 0.1)',
-  boxSizing: 'border-box',
-  zIndex: 9,
-}
+const Wrapper = styled.header`
+  align-items: center;
+  background: white;
+  border-bottom: 1px solid #e4e4e4;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  height: 80px;
+  left: 0;
+  padding-left: 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  zIndex: 9;
+`;
+
+const Logo = styled.img`
+  height: 50px;
+`;
