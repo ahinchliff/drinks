@@ -21,19 +21,18 @@ function Event(props) {
           <p>{title}</p>
         </Header>
         <Main type={type}>
-          {attending && <span style={attendingStyle}>Attending</span>}
+          {attending && <AttendingTag>Attending</AttendingTag>}
         </Main>
-        
-          <footer style={footerStyle}>
-            <div style={{marginRight: '30px', display: 'flex', alignItems: 'center'}}>
-              <img src={guestsIcon} style={{height: '25px', marginRight: '10px'}} alt={"Guest count"}/>
-              {guestCount}
-            </div>
-            <div style={{display: 'flex', alignItems: 'center'}}>
-              <img src={commentsIcon} style={{height: '25px', marginRight: '10px'}} alt={"Comment count"}/>
-              {commentCount}
-            </div>
-          </footer> 
+        <Footer>
+          <CountContainer>
+            <CountIcon src={guestsIcon} alt={"Guest count"}/>
+            {guestCount}
+          </CountContainer>
+          <CountContainer>
+            <CountIcon src={commentsIcon} alt={"Comment count"}/>
+            {commentCount}
+          </CountContainer>
+        </Footer> 
       </EventClickable>
     </Wrapper>
   );
@@ -101,20 +100,31 @@ const Main = styled.main`
   });
 `;
 
-const footerStyle = {
-  padding: '10px 0 10px 15px',
-  display: 'flex',
-  flexDirection: 'row',
-}
+const Footer = styled.footer`
+  padding: 10px 0 10px 15px;
+  display: flex;
+  flex-direction: row;
+`;
 
-const attendingStyle = {
-  background: 'green',
-  color: 'white',
-  padding: '5px',
-  boxSizing: 'border-box',
-  display: 'inline-block',
-  float: 'right',
-  borderRadius: '4px',
-  fontFamily: '"Helvetica", sans-serif',
-}
+const CountContainer = styled.div`
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+`;
+
+const CountIcon = styled.img`
+  height: 25px;
+  margin-right: 10px;
+`;
+
+const AttendingTag = styled.span`
+  background: green;
+  color: white;
+  padding: 5px;
+  box-sizing: border-box;
+  display: inline-block;
+  float: right;
+  border-radius: 4px;
+  font-family: "Helvetica", sans-serif;
+`;
 
