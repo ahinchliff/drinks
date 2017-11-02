@@ -1,35 +1,56 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function AttendingList(props) {
+  const { attending } = props;
+  const attendees = attending.map((attendee, index) => {
+    return (
+      <Attendee key={index}>
+        <div>
+          <AttendeeAvatar src={attendee.avatarUrl} alt={`${attendee.name}'s profile`} />
+          <AttendeeName>{attendee.name}</AttendeeName>
+        </div>
+      </Attendee>
+    );
+  });
+
   return (
     <div>
-      <span style={{fontFamily: '"Helvetica", sans-serif', fontSize: '18px'}}>Attending</span>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0,}}>
-        {generateAttendees(props.attending)}
-      </ul>
+      <Title>Attending</Title>
+      <AttendeeList>{attendees}</AttendeeList>
     </div>
   );
 }
 
 export default AttendingList;
 
-function generateAttendees(list) {
-  return list.map((attendee, index) => {
-    return (
-      <li key={index}>
-        <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px'  }}>
-          <img src={attendee.avatarUrl} alt={`${attendee.name}'s profile`} style={imageStyle}/>
-          <span style={{fontWeight: 'bold'}}>{attendee.name}</span>
-        </div>
-      </li>
-    );
-  })
-}
+const Title = styled.span`
+  font-family: "Helvetica", sans-serif;
+  font-size: 18px;
+`;
 
-const imageStyle = {
-  borderRadius: '50%',
-  height: '50px',
-  maxWidth: '50px',
-  border: '2px solid black',
-  marginRight: '10px',
-};
+const AttendeeList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const Attendee = styled.li`
+  div {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+`;
+
+const AttendeeAvatar = styled.img`
+  border-radius: 50%;
+  height: 50px;
+  max-width: 50px;
+  border: 2px solid black;
+  margin-right: 10px;
+`;
+
+const AttendeeName = styled.span`
+  font-weight: bold;
+`;

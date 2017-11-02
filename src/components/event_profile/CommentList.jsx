@@ -1,41 +1,61 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function CommentList(props) {
+  const { comments } = props;
+  
+  const commentsStyled = comments.map((comment, index) => {
+    const { user, message } = comment;
+    return (
+      <li key={index}>
+        <Comment>
+          <AttendeeAvatar src={user.avatarUrl} alt={`${user.name}'s profile`}/>
+          <div>
+            <AttendeeName>{user.name}</AttendeeName>
+            <span>{message}</span>
+          </div>
+        </Comment>
+      </li>
+    )
+  });
+
   return (
     <div>
-      <span style={{fontFamily: '"Helvetica", sans-serif', fontSize: '18px'}}>
-        Comments
-      </span>
-      <ul style={{ listStyle: 'none', padding: 0, margin: 0,}}>
-        {generateComments(props.comments)}
-      </ul>
+      <Title>Comments</Title>
+      <StyledCommentList>{commentsStyled}</StyledCommentList>
     </div>
   );
 }
 
 export default CommentList;
 
-function generateComments(list) {
-  return list.map((comment, index) => {
-    const { user, message } = comment;
-    return (
-      <li key={index}>
-        <div style={{ display: 'flex', alignItems: 'center', marginTop: '10px', paddingRight: '10px' }}>
-          <img src={user.avatarUrl} alt={`${user.name}'s profile`} style={imageStyle}/>
-          <div>
-            <span style={{display: 'block', fontWeight: 'bold'}}>{user.name}</span>
-            <span>{message}</span>
-          </div>
-        </div>
-      </li>
-    )
-  })
-}
+const Title = styled.span`
+  font-family: "Helvetica", sans-serif;
+  font-size: 18px;
+`;
 
-const imageStyle = {
-  borderRadius: '50%',
-  height: '50px',
-  maxWidth: '50px',
-  border: '2px solid black',
-  marginRight: '10px',
-};
+const StyledCommentList = styled.ul`
+  list-style: none;
+  padding: 0;
+  margin: 0;
+`;
+
+const Comment = styled.div`
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  padding-right: 10px;
+`;
+
+const AttendeeAvatar = styled.img`
+  border-radius: 50%;
+  height: 50px;
+  max-width: 50px;
+  border: 2px solid black;
+  margin-right: 10px;
+`;
+
+const AttendeeName = styled.span`
+  display: block;
+  font-weight: bold;    
+`;

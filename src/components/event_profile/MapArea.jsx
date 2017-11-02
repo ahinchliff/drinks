@@ -1,10 +1,11 @@
 import React from 'react';
+import styled from 'styled-components';
 import Map from './Map';
 
 function MapArea(props) {
   return (
     <div>
-      <span style={{fontFamily: '"Helvetica", sans-serif', fontSize: '18px'}}>Location</span>
+      <Title>Location</Title>
       <Map
         googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyD_5FdODt2U1KVnKhawWlk1fAUPFiI4rBE&v=3.exp&libraries=geometry,drawing,places"
         loadingElement={<div style={{ height: `100%` }} />}
@@ -15,6 +16,12 @@ function MapArea(props) {
     </div>
   );
 }
+
+const Title = styled.span`
+  font-family: "Helvetica", sans-serif;
+  font-size: 18px;
+`;
+
 
 export default MapArea;
 

@@ -1,25 +1,24 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Event from './Event.jsx';
+import styled from 'styled-components';
+
 
 function EventList(props) {
+  const { searchTerm } = props;
+  const eventData = props.events || [];
+
+  const filteredEventsByTerm = eventData.filter(event => {
+    const title = event.title.toLowerCase();
+    const term = searchTerm.toLowerCase();
+    return title.includes(term);
+  })
+
   return (
-    <div style={containerStyle}>
-      {generateEvents()}
-    </div>
+    <Wrapper>
+      {filteredEventsByTerm.map(event => <Event data={event} key={event.id} />)}
+    </Wrapper>
   );
-  
-  function generateEvents() {
-    const { events, searchTerm } = props;
-    if (!events) {return};
-    
-    const filteredEventsByTerm = events.filter(event => {
-      const title = event.title.toLowerCase();
-      const term = searchTerm.toLowerCase();
-      return title.includes(term);
-    })
-    return filteredEventsByTerm.map(event => <Event data={event} key={event.id} />);
-  }
 }
 
 function mapStateToProps({ events, searchTerm }) {
@@ -28,10 +27,10 @@ function mapStateToProps({ events, searchTerm }) {
 
 export default connect(mapStateToProps)(EventList);
 
-const containerStyle = {
-  boxSizing: 'border-box',
-  display: 'flex',
-  flexWrap: 'wrap', 
-  padding: '15px',
-  width: '100%',
-}
+const Wrapper = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 15px;
+  width: 100%;
+`;
