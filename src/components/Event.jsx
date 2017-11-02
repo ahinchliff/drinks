@@ -16,7 +16,7 @@ function Event(props) {
 
   return (
     <Wrapper>
-      <EventClickable onClick={() => handleOnClick(history, id)}>
+      <EventClickable onClick={() => history.push(`/events/${id}`)}>
         <Header>
           <p>{title}</p>
         </Header>
@@ -39,10 +39,6 @@ function Event(props) {
 }
 
 export default withRouter(Event);
-
-function handleOnClick(history, id) {
-  history.push(`/events/${id}`);
-}
 
 const Wrapper = styled.div`
   box-sizing: border-box;
