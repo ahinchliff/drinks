@@ -14,6 +14,7 @@ function EventProfile(props) {
   const event = events.filter(event => event.id === eventId)[0];
   let content;
 
+  // if event is found render assign content to event data
   if (event) {
     const { attending, guests, title, location, time, id, comments } = event;
     const date = new Date(time).toLocaleDateString()
@@ -30,6 +31,7 @@ function EventProfile(props) {
       </Main>
     </div>
     )
+  //if event cannot be found return error message
   } else {
     content = <p>No such event exists</p>
   }
