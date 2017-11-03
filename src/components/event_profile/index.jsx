@@ -8,17 +8,37 @@ import CommentList from './CommentList';
 import MapArea from './MapArea';
 
 function EventProfile(props) {
-  const { history, events, toggleAttendingEvent } = props;
+  const { history, toggleAttendingEvent } = props;
   const eventId = +(props.match.params.id);
-  let event;
-  
-  if (events) {
-    event = (events.filter(event => event.id === eventId))[0]
+  const events = props.events || [];
+  const event = events.filter(event => event.id === eventId)[0];
+  let content;
+
+  if (event) {
+    const { attending, guests, title, location, time, id, comments } = event;
+    const date = new Date(time).toLocaleDateString()
+    content = (
+      <div>
+        <Header>
+          <p>{title} - {date}</p>
+          <AttendingButton attending={attending} toggle={() => toggleAttendingEvent(id)}/>
+        </Header>
+      <Main>
+        <AttendingList attending={guests}/>
+        <CommentList comments={comments}/>
+        <MapArea location={location}/>
+      </Main>
+    </div>
+    )
+  } else {
+    content = <p>No such event exists</p>
   }
 
   return (
     <Overlay onClick={() => history.push("/")}>
-      {events && generateProfile(event, toggleAttendingEvent)}
+      <Modal onClick={e => e.stopPropagation()}>
+        {content}
+      </Modal>
     </Overlay>
   );
 }
@@ -28,26 +48,6 @@ function mapStateToProps({ events }) {
 }
 
 export default connect(mapStateToProps, actions)(EventProfile);
-
-
-function generateProfile(event, toggleAttendingEvent) {
-  const { attending, guests, title, location, time, id, comments } = event;
-  const date = new Date(time).toLocaleDateString()
-
-  return (
-    <Modal onClick={e => e.stopPropagation()}>
-      <Header>
-        <p>{title} - {date}</p>
-        <AttendingButton attending={attending} toggle={() => toggleAttendingEvent(id)}/>
-      </Header>
-      <Main>
-        <AttendingList attending={guests}/>
-        <CommentList comments={comments}/>
-        <MapArea location={location}/>
-      </Main>
-    </Modal>
-  );
-}
 
 const Overlay = styled.div`
   position: fixed;
